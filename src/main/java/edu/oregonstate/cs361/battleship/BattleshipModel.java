@@ -124,9 +124,17 @@ public class BattleshipModel {
         }else if (battleship.covers(coor)){
             playerHits.add(coor);
         }else if (dinghy.covers(coor)){
-            playerHits.add(coor);
+            if (!dinghy.hasArmor) {
+                dinghy.autoSink(coor);      // TODO: here too
+            } else {
+                playerHits.add(coor);
+            }
         }else if (clipper.covers(coor)){
-            playerHits.add(coor);
+            if (!clipper.hasArmor) {
+                clipper.autoSink(coor);     // TODO: fix to iterate over what autoSink returns
+            } else {
+                playerHits.add(coor);
+            }
         }else if (submarine.covers(coor)){
             playerHits.add(coor);
         } else {
