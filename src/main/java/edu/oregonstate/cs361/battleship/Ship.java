@@ -63,6 +63,10 @@ public class Ship {
     public String getName() {
         return name;
     }
+    
+    public Coordinate getStart() { return start; }
+    
+    public Coordinate getEnd() { return end; }
 
 
     public boolean scan(Coordinate coor) {

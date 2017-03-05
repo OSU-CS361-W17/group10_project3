@@ -5,15 +5,29 @@ import java.util.ArrayList;
 public class CivShip extends Ship{
 
 
-    public void autoSink(Coordinate test){
+    public void autoSink(ArrayList<Coordinate> hitsList){
         // Function that fires at all the ship coords, sinking it. Called when any coord of civship gets hit
 
-        // Returns all of the coordinates this civilian ship occupies
-        if (this.covers(test) && !this.hasArmor) {
-            ArrayList<Coordinate> al = new ArrayList<Coordinate>();
-            // for this.length, iterate over all coordinates in this civilian ship from start to end inclusive,
-            // and return an ArrayList<Coordinate> that fireAt can iterate over
+        Coordinate currCoor = this.start;
+        int row = currCoor.getDown();
+        int col = currCoor.getAcross();
+        
+        if (this.start.getDown() == this.end.getDown()) {
+            // if the start and end coordinates of this ship lie on the same row, iterate over coordinates horizontally
+            for (int i = 0; i < this.length; i++) {
+                hitsList.add(currCoor);
+                col = currCoor.getAcross() + 1;
+                currCoor = new Coordinate(col, row);
+            }
+        } else {
+            // else, they lie on the same column, so iterate over ship's coordinates vertically
+            for (int j = 0; j < this.length; j++) {
+                hitsList.add(currCoor);
+                row = currCoor.getDown() + 1;
+                currCoor = new Coordinate(col, row);            // Coordinate constructor: Coordinate(column, row)
+            }
         }
+
     }
 
     public CivShip(String name, int length, Coordinate start, Coordinate end) {
